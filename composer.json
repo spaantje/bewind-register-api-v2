@@ -1,0 +1,21 @@
+{
+    "name": "spaanproductions/rechtspraak",
+    "autoload": {
+        "psr-4": {
+            "SpaanProductions\\Rechtspraak\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sonny Spaan",
+            "email": "info@spaanproductions.nl"
+        }
+    ],
+    "require": {
+        "nesbot/carbon": "^2.57",
+        "vlucas/phpdotenv": "^5.4",
+        "symfony/var-dumper": "^6.0",
+        "filp/whoops": "^2.14",
+	    "ext-soap": "*"
+    }
+}

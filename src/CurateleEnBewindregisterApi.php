@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Apis\Rechtspraak;
+namespace SpaanProductions\Rechtspraak;
 
 use SoapVar;
 use stdClass;
+use SoapFault;
 use SoapClient;
 use SoapHeader;
 
@@ -46,7 +47,7 @@ class CurateleEnBewindregisterApi
 	 * @param string $birthday
 	 * @param string|null $voorvoegsel
 	 * @return mixed
-	 * @throws \SoapFault
+	 * @throws SoapFault
 	 */
 	public function search($name, $birthday, $voorvoegsel = null)
 	{
@@ -67,11 +68,11 @@ class CurateleEnBewindregisterApi
 	}
 
 	/**
-	 * Try to find the detials based on the Registerkaart Aanduiding
+	 * Try to find the datials based on the Registerkaart Aanduiding
 	 *
 	 * @param $RegisterkaartAanduiding
 	 * @return mixed
-	 * @throws \SoapFault
+	 * @throws SoapFault
 	 */
 	public function registerkaart($RegisterkaartAanduiding)
 	{

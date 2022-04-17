@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Apis\Rechtspraak;
+namespace SpaanProductions\Rechtspraak;
 
 use SoapVar;
 use stdClass;
@@ -8,7 +8,6 @@ use SoapFault;
 use SoapClient;
 use SoapHeader;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
 
 class RechtspraakApi
 {
@@ -21,14 +20,11 @@ class RechtspraakApi
 	public function token()
 	{
 		$wsdl = 'https://sts.rechtspraak.nl/adfs/services/trust/mex';
-		$cache_token = config('rechtspraak.cache-token');
-		$username = config('rechtspraak.username');
-		$password = config('rechtspraak.password');
+		$username = $_ENV['RECHTSPRAAK_USERNAME'];
+		$password = $_ENV['RECHTSPRAAK_PASSWORD'];
 
 		// Try to get it from the cache so we don't have to request it multiple times..
-		if (Cache::has($cache_token)) {
-			return Cache::get($cache_token);
-		}
+		// Todo: We should cache the token.
 
 		$client = new SoapClient($wsdl, [
 			'soap_version' => SOAP_1_2,
@@ -79,8 +75,6 @@ class RechtspraakApi
 		$re = '/<trust:RequestedSecurityToken>(.*)<\/trust:RequestedSecurityToken>/m';
 		preg_match($re, $token, $matches);
 
-		return Cache::remember($cache_token, $expires, function () use ($matches) {
-			return $matches[1];
-		});
+		return $matches[1];
 	}
 }
