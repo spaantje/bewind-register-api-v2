@@ -44,10 +44,11 @@ class CurateleEnBewindregisterApi
 	 *
 	 * @param string $name
 	 * @param string $birthday
+	 * @param string|null $voorvoegsel
 	 * @return mixed
 	 * @throws \SoapFault
 	 */
-	public function search($name, $birthday)
+	public function search($name, $birthday, $voorvoegsel = null)
 	{
 		$auth = new stdClass();
 		$auth->Security = new SoapVar($this->tokenApi->token(), XSD_ANYXML, null, null, null, null);
@@ -61,7 +62,7 @@ class CurateleEnBewindregisterApi
 		]);
 
 		return $this->soap->ZoekRegisterkaarten(
-			new SoapVar(new ZoekRegisterkaartenSoapObject($name, $birthday), XSD_ANYXML, null, null, null, null)
+			new SoapVar(new ZoekRegisterkaartenSoapObject($name, $birthday, $voorvoegsel), XSD_ANYXML, null, null, null, null)
 		);
 	}
 
